@@ -1,6 +1,5 @@
 package View;
 
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,10 +11,12 @@ public class Ventana extends JFrame {
         cardLayout = new CardLayout();
         paneles = new JPanel(cardLayout);
 
+        PanelRules pR = new PanelRules();
         PanelEleccion pE = new PanelEleccion();
         PanelJuego pJ = new PanelJuego();
         PanelFinal pF = new PanelFinal();
 
+        paneles.add(pR, "pR");
         paneles.add(pE, "pE");
         paneles.add(pJ, "pJ");
         paneles.add(pF, "pF");

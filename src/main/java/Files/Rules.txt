@@ -1,0 +1,10 @@
+Bienvenido/a al juego Piedra, Papel o Tijera. Las reglas de este
+juego son muy sencillas. En caso de que no las recuerdes:
+
+Piedra GANA A Tijera.
+
+Papel GANA A Piedra.
+
+Tijera GANA A Papel.
+
+En este caso jugaras contra una IA ¡Mucha suerte!

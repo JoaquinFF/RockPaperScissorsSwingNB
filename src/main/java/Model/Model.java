@@ -1,32 +1,58 @@
-
-
 package Model;
 
+import View.PanelRules;
 import View.PanelEleccion;
 import View.PanelJuego;
 import View.PanelFinal;
 import View.Ventana;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Model {
-    public PanelEleccion pE;
-    public PanelJuego pJ;
-    public PanelFinal pF;
-    public Ventana vent;
-    public int nRondas = 0;
-    public String[] arrayAtaques;
-    public String[] arrayAtaquesEnemigo;
+    private PanelRules pR;
+    private PanelEleccion pE;
+    private PanelJuego pJ;
+    private PanelFinal pF;
+    private Ventana vent;
+    private int nRondas = 0;
+    private String[] arrayAtaques;
+    private String[] arrayAtaquesEnemigo;
     private int victorias;
     private int victoriasEnemigo;
-    protected int numeroAtaques = 0;
-    protected String condicion;
+    private int numeroAtaques = 0;
+    private String condicion;
 
-    public Model(Ventana vent, PanelEleccion pE, PanelJuego pJ, PanelFinal pF){
+    public Model(Ventana vent, PanelRules pR, PanelEleccion pE, PanelJuego pJ, PanelFinal pF){
         this.vent = vent;
+        this.pR = pR;
         this.pE = pE;
         this.pJ = pJ;
         this.pF = pF;
+    }
+
+    public void leerReglas(){
+        try {
+            FileReader reglas = new FileReader("src/main/java/Files/Rules.txt");
+            int c = 0;
+            String texto = "";
+
+            while(c != -1){
+                c = reglas.read();
+                char letra = (char) c;
+                texto += letra;
+            }
+            pR.updateReglas(texto);
+            reglas.close();
+        } catch (IOException e){
+            System.out.println(e);
+        }
+    }
+
+    public void continuar(){
+        vent.cardLayout.show(vent.paneles, "pE");
     }
 
     public void rondas(int nRondas){
@@ -78,6 +104,7 @@ public class Model {
                 } else {
                     condicion = "EMPATE";
                 }
+
                 mostrarMFinal();
                 vent.cardLayout.show(vent.paneles, "pF");
             }
@@ -99,13 +126,27 @@ public class Model {
     public void mostrarMFinal(){
         String textoAliado = "";
         String textoEnemigo = "";
+        String aliado = "";
+        String enemigo = "\nAtaques de la IA \n";
+        String con = "\nResultado: ";
         for(int i = 0; i < nRondas; i++){
             textoAliado += arrayAtaques[i] + "\n";
             textoEnemigo += arrayAtaquesEnemigo[i] + "\n";
         }
+        aliado = "\nAtaques del jugador: \n" + textoAliado + enemigo  + textoEnemigo + con + condicion;
         pF.updateAtaques(textoAliado);
         pF.updateAtaquesEnemigos(textoEnemigo);
         pF.updateCondicion(condicion);
+
+        try {
+            FileWriter historialJugadas = new FileWriter("src/main/java/Files/Historial.txt", true);
+            for (int i = 0; i < aliado.length(); i++) {
+                historialJugadas.write(aliado.charAt(i));
+            }
+            historialJugadas.close();
+        } catch (IOException e){
+            System.out.println(e);
+        }
     }
 
     public void reiniciar(){
@@ -122,4 +163,3 @@ public class Model {
         vent.dispose();
     }
 }
-

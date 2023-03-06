@@ -51,6 +51,7 @@ public class PanelFinal extends JPanel{
         ataques.setBounds(225, 200, 100, 200);
         ataques.setFont(fuente);
         ataques.setBackground(color);
+        ataques.setEditable(false);
 
         ataquesEnemigo.setBounds(700, 200, 100, 200);
         ataquesEnemigo.setFont(fuente);
