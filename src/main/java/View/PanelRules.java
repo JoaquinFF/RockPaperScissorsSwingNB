@@ -26,7 +26,7 @@ public class PanelRules extends JPanel {
         add(reglas);
         add(continuar);
 
-        reglas.setBounds(50, 100, 850, 290);
+        reglas.setBounds(50, 100, 850, 300);
         reglas.setFont(fuente);
         reglas.setBackground(color);
         reglas.setEditable(false);
@@ -42,8 +42,4 @@ public class PanelRules extends JPanel {
 
     public JTextArea reglas = new JTextArea("");
     public JButton continuar = new JButton("CONTINUAR");
-
-    public void updateReglas(String rules){
-        reglas.setText(rules);
-    }
 }

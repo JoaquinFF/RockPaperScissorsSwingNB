@@ -68,14 +68,4 @@ public class PanelFinal extends JPanel{
     public JTextArea ataquesEnemigo = new JTextArea("HOLA");
 
     public JLabel condicion = new JLabel("HOLA");
-
-    public void updateAtaques(String texto){
-        ataques.setText(texto);
-    }
-    public void updateAtaquesEnemigos(String texto){
-        ataquesEnemigo.setText(texto);
-    }
-    public void updateCondicion(String texto){
-        condicion.setText(texto);
-    }
 }

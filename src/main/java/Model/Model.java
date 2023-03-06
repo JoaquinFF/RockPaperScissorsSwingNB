@@ -1,10 +1,6 @@
 package Model;
 
-import View.PanelRules;
-import View.PanelEleccion;
-import View.PanelJuego;
-import View.PanelFinal;
-import View.Ventana;
+import Controller.Controller;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,11 +8,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Model {
-    private PanelRules pR;
-    private PanelEleccion pE;
-    private PanelJuego pJ;
-    private PanelFinal pF;
-    private Ventana vent;
+    private Controller cont;
     private int nRondas = 0;
     private String[] arrayAtaques;
     private String[] arrayAtaquesEnemigo;
@@ -25,12 +17,8 @@ public class Model {
     private int numeroAtaques = 0;
     private String condicion;
 
-    public Model(Ventana vent, PanelRules pR, PanelEleccion pE, PanelJuego pJ, PanelFinal pF){
-        this.vent = vent;
-        this.pR = pR;
-        this.pE = pE;
-        this.pJ = pJ;
-        this.pF = pF;
+    public Model(Controller cont){
+        this.cont = cont;
     }
 
     public void leerReglas(){
@@ -44,22 +32,18 @@ public class Model {
                 char letra = (char) c;
                 texto += letra;
             }
-            pR.updateReglas(texto);
+            cont.updateReglas(texto);
             reglas.close();
         } catch (IOException e){
             System.out.println(e);
         }
     }
 
-    public void continuar(){
-        vent.cardLayout.show(vent.paneles, "pE");
-    }
 
     public void rondas(int nRondas){
         this.nRondas = nRondas;
         arrayAtaques = new String[nRondas];
         arrayAtaquesEnemigo = new String[nRondas];
-        vent.cardLayout.show(vent.paneles, "pJ");
     }
 
     public void combate(int ataque){
@@ -77,7 +61,7 @@ public class Model {
 
             for(int i = 0; i <= numeroAtaques; i++){
                 texto += arrayAtaques[i] + ", ";
-                pJ.updateMessage(texto);
+                cont.updateMessage(texto);
             }
 
             numeroAtaques++;
@@ -106,7 +90,7 @@ public class Model {
                 }
 
                 mostrarMFinal();
-                vent.cardLayout.show(vent.paneles, "pF");
+                cont.cambiarFinal();
             }
         }
     }
@@ -134,9 +118,9 @@ public class Model {
             textoEnemigo += arrayAtaquesEnemigo[i] + "\n";
         }
         aliado = "\nAtaques del jugador: \n" + textoAliado + enemigo  + textoEnemigo + con + condicion;
-        pF.updateAtaques(textoAliado);
-        pF.updateAtaquesEnemigos(textoEnemigo);
-        pF.updateCondicion(condicion);
+        cont.updateAtaques(textoAliado);
+        cont.updateAtaquesEnemigos(textoEnemigo);
+        cont.updateCondicion(condicion);
 
         try {
             FileWriter historialJugadas = new FileWriter("src/main/java/Files/Historial.txt", true);
@@ -150,16 +134,11 @@ public class Model {
     }
 
     public void reiniciar(){
-        vent.cardLayout.show(vent.paneles, "pE");
         nRondas = 0;
         numeroAtaques = 0;
         victorias = 0;
         victoriasEnemigo = 0;
         condicion = "";
-        pJ.updateMessage("");
-    }
-
-    public void salir(){
-        vent.dispose();
+        cont.updateMessage("");
     }
 }

@@ -58,19 +58,16 @@ public class PanelJuego extends JPanel{
     }
     Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-    Image rock = toolkit.getImage("src/main/java/View/piedra.png");
+    Image rock = toolkit.getImage("src/main/java/View/Images/piedra.png");
     public JButton rockButton = new JButton(new ImageIcon(rock));
 
-    Image paper = toolkit.getImage("src/main/java/View/paper.png");
+    Image paper = toolkit.getImage("src/main/java/View/Images/paper.png");
     public JButton paperButton = new JButton(new ImageIcon(paper));
 
-    Image scissors = toolkit.getImage("src/main/java/View/tijera.png");
+    Image scissors = toolkit.getImage("src/main/java/View/Images/tijera.png");
     public JButton scissorsButton = new JButton(new ImageIcon(scissors));
 
     public JLabel ataques = new JLabel("Sus ataques: ");
 
     public JLabel mensaje = new JLabel();
-    public void updateMessage(String msg){
-        mensaje.setText(msg);
-    }
 }

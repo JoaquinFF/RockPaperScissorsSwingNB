@@ -34,7 +34,7 @@ public class Ventana extends JFrame {
 
         setTitle("Piedra, papel o tijera");
 
-        Image icon = miPantalla.getImage("src/main/java/View/icon.jpg");
+        Image icon = miPantalla.getImage("src/main/java/View/Images/icon.jpg");
         setIconImage(icon);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

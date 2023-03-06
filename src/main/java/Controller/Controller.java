@@ -1,5 +1,6 @@
 package Controller;
 
+
 import Model.Model;
 import View.View;
 import View.PanelRules;
@@ -22,8 +23,8 @@ public class Controller {
     private Ventana vent;
 
 
-    public Controller(Model m, View v, PanelRules pR, PanelEleccion pE, PanelJuego pJ, PanelFinal pF, Ventana vent){
-        this.m = m;
+    public Controller(View v, PanelRules pR, PanelEleccion pE, PanelJuego pJ, PanelFinal pF, Ventana vent){
+        this.m = new Model(this);
         this.v = v;
         this.pR = pR;
         this.pE = pE;
@@ -63,13 +64,16 @@ public class Controller {
     }
     private void ronda1ButtonPressed(){
         m.rondas(1);
+        vent.cardLayout.show(vent.paneles, "pJ");
     }
 
     private void ronda3ButtonPressed(){
         m.rondas(3);
+        vent.cardLayout.show(vent.paneles, "pJ");
     }
     private void ronda5ButtonPressed(){
         m.rondas(5);
+        vent.cardLayout.show(vent.paneles, "pJ");
     }
 
     private void rockButtonPressed(){
@@ -86,13 +90,34 @@ public class Controller {
 
     private void reiniciarButtonPressed(){
         m.reiniciar();
+        vent.cardLayout.show(vent.paneles, "pE");
     }
 
     private void salirButtonPressed(){
-        m.salir();
+        vent.dispose();
     }
 
     private void continuarPressed(){
-        m.continuar();
+        vent.cardLayout.show(vent.paneles, "pE");
+    }
+    
+    public void updateReglas(String rules){
+        pR.reglas.setText(rules);
+    }
+    
+    public void updateMessage(String msg){
+        pJ.mensaje.setText(msg);
+    }
+    public void updateAtaques(String texto){
+        pF.ataques.setText(texto);
+    }
+    public void updateAtaquesEnemigos(String texto){
+        pF.ataquesEnemigo.setText(texto);
+    }
+    public void updateCondicion(String texto){
+        pF.condicion.setText(texto);
+    }
+    public void cambiarFinal(){
+        vent.cardLayout.show(vent.paneles, "pF");
     }
 }
